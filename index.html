@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trần Minh Đức — Marketing mind. Creative energy.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0D1128;
+  --navy-soft:#161A3A;
+  --blue:#3D5AFE;
+  --purple:#8B5CF6;
+  --magenta:#EC4899;
+  --orange:#FB923C;
+  --paper:#F6F5F2;
+  --paper-2:#EFEDE7;
+  --ink:#12142B;
+  --ink-soft:#585B78;
+  --line: rgba(18,20,43,0.12);
+  --grad-main: linear-gradient(120deg, var(--blue) 0%, var(--purple) 45%, var(--magenta) 80%, var(--orange) 100%);
+  --grad-hero: radial-gradient(circle at 15% 20%, rgba(61,90,254,0.55), transparent 45%),
+               radial-gradient(circle at 85% 15%, rgba(236,72,153,0.45), transparent 50%),
+               radial-gradient(circle at 60% 90%, rgba(251,146,60,0.35), transparent 55%),
+               linear-gradient(160deg, #0A0D22 0%, #10143A 55%, #171142 100%);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter', sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,.display{
+  font-family:'Bricolage Grotesque', sans-serif;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  line-height:1.02;
+}
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+section{position:relative;}
+
+/* grain overlay */
+.grain{
+  position:fixed; inset:0; pointer-events:none; z-index:999; opacity:0.045; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- phase rail ---------- */
+.phase-rail{
+  position:fixed; left:28px; top:50%; transform:translateY(-50%); z-index:80;
+  display:flex; flex-direction:column; gap:22px;
+}
+.phase-rail .ph{
+  font-size:11px; font-weight:600; letter-spacing:0.06em; color:var(--ink-soft);
+  writing-mode:vertical-rl; text-orientation:mixed; transform:rotate(180deg);
+  opacity:0.35; transition:opacity .4s ease, color .4s ease; position:relative; padding-left:10px;
+}
+.phase-rail .ph::before{
+  content:''; position:absolute; left:0; top:0; width:2px; height:0%;
+  background:var(--grad-main); transition:height .5s ease;
+}
+.phase-rail .ph.active{opacity:1; color:var(--ink);}
+.phase-rail .ph.active::before{height:100%;}
+.phase-rail.on-dark .ph{color:#E9E9F5;}
+.phase-rail.on-dark .ph.active{color:#fff;}
+@media (max-width:900px){.phase-rail{display:none;}}
+
+/* ---------- top nav ---------- */
+.topnav{
+  position:fixed; top:0; left:0; right:0; z-index:90;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 32px; backdrop-filter:blur(10px);
+  background:rgba(246,245,242,0.55);
+  border-bottom:1px solid transparent;
+  transition:background .3s ease, border-color .3s ease;
+}
+.topnav.dark-zone{background:rgba(10,13,34,0.4); border-color:rgba(255,255,255,0.08);}
+.topnav .mark{font-family:'Bricolage Grotesque'; font-weight:700; font-size:18px;}
+.topnav.dark-zone .mark{color:#fff;}
+.topnav nav{display:flex; gap:26px;}
+.topnav nav a{font-size:13px; font-weight:500; color:var(--ink-soft); transition:color .2s;}
+.topnav.dark-zone nav a{color:rgba(255,255,255,0.65);}
+.topnav nav a:hover{color:var(--ink);}
+.topnav.dark-zone nav a:hover{color:#fff;}
+@media (max-width:760px){.topnav nav{display:none;}}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:14px 26px; border-radius:100px; font-size:14px; font-weight:600;
+  border:1px solid var(--ink); cursor:pointer; background:transparent; color:var(--ink);
+  transition:transform .25s ease, background .25s ease, color .25s ease;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn.primary{background:var(--ink); color:#fff; border-color:var(--ink);}
+.btn.primary:hover{background:var(--blue); border-color:var(--blue);}
+.btn.on-dark{border-color:rgba(255,255,255,0.4); color:#fff;}
+.btn.on-dark.primary{background:#fff; color:var(--navy); border-color:#fff;}
+.btn.on-dark.primary:hover{background:var(--orange); border-color:var(--orange); color:#fff;}
+
+/* ================= HERO ================= */
+.hero{
+  min-height:100vh; background:var(--grad-hero); color:#fff;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:140px 0 80px; position:relative; overflow:hidden;
+}
+.hero::after{
+  content:''; position:absolute; inset:0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size:34px 34px; opacity:0.06; pointer-events:none;
+}
+.hero .wrap{position:relative; z-index:2;}
+.hero-tag{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:500; color:rgba(255,255,255,0.75);
+  border:1px solid rgba(255,255,255,0.25); border-radius:100px; padding:8px 16px;
+  margin-bottom:28px; background:rgba(255,255,255,0.06); backdrop-filter:blur(6px);
+}
+.hero-tag .dot{width:7px; height:7px; border-radius:50%; background:var(--orange);}
+.hero h1{
+  font-size:clamp(44px, 7.2vw, 96px);
+  max-width:920px;
+}
+.hero h1 .grad{
+  background:linear-gradient(100deg, #7FA3FF, #C29BFF 45%, #FF9CD1 80%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero .role{
+  margin-top:22px; font-size:clamp(18px,2.3vw,24px); font-weight:500; color:rgba(255,255,255,0.88);
+  max-width:640px;
+}
+.hero .statement{
+  margin-top:18px; font-size:16px; line-height:1.6; color:rgba(255,255,255,0.6); max-width:520px;
+}
+.hero-grid{
+  display:grid; grid-template-columns:1.5fr 1fr; gap:60px; align-items:end; margin-top:70px;
+}
+.hero-photo{
+  aspect-ratio:4/5; border-radius:24px; position:relative; overflow:hidden;
+  background:linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border:1px solid rgba(255,255,255,0.16);
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  backdrop-filter:blur(4px);
+}
+.hero-photo .ph-label{font-size:13px; color:rgba(255,255,255,0.45); padding:0 30px; line-height:1.5;}
+.hero-photo svg{width:54px; height:54px; opacity:.35; margin-bottom:14px;}
+.hero-meta{display:flex; flex-direction:column; gap:22px;}
+.hero-meta .row{border-top:1px solid rgba(255,255,255,0.15); padding-top:16px;}
+.hero-meta .row .k{font-size:11px; letter-spacing:0.06em; color:rgba(255,255,255,0.45); margin-bottom:6px;}
+.hero-meta .row .v{font-size:15px; font-weight:500; color:#fff;}
+.hero-cta{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+@media (max-width:800px){
+  .hero-grid{grid-template-columns:1fr;}
+}
+
+/* ================= SECTION HEADS ================= */
+.sec-head{display:flex; align-items:flex-end; justify-content:space-between; gap:40px; margin-bottom:64px; flex-wrap:wrap;}
+.sec-head .kicker{font-size:13px; font-weight:600; color:var(--blue); margin-bottom:14px; display:block;}
+.sec-head h2{font-size:clamp(32px,4.4vw,54px); max-width:640px;}
+.sec-head p{max-width:360px; color:var(--ink-soft); font-size:15px; line-height:1.6;}
+
+/* ================= ABOUT ================= */
+.about{padding:150px 0 120px;}
+.about-layout{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;}
+.about-story p{font-size:clamp(20px,2.6vw,28px); line-height:1.5; font-weight:500; color:var(--ink);}
+.about-story p + p{margin-top:22px; font-size:16px; font-weight:400; color:var(--ink-soft); line-height:1.7;}
+.trait-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.trait{
+  border:1px solid var(--line); border-radius:20px; padding:26px 22px;
+  background:#fff; transition:transform .3s ease, box-shadow .3s ease;
+}
+.trait:hover{transform:translateY(-4px); box-shadow:0 20px 40px rgba(18,20,43,0.08);}
+.trait .n{font-size:12px; color:var(--ink-soft); margin-bottom:14px;}
+.trait h4{font-size:20px; margin-bottom:8px;}
+.trait p{font-size:13.5px; color:var(--ink-soft); line-height:1.5;}
+.trait:nth-child(1){border-top:3px solid var(--blue);}
+.trait:nth-child(2){border-top:3px solid var(--purple);}
+.trait:nth-child(3){border-top:3px solid var(--magenta);}
+.trait:nth-child(4){border-top:3px solid var(--orange);}
+@media (max-width:820px){.about-layout{grid-template-columns:1fr; gap:50px;}}
+
+/* ================= TOOLKIT ================= */
+.toolkit{padding:110px 0; background:var(--paper-2); position:relative;}
+.tool-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:24px; overflow:hidden;}
+.tool-item{background:var(--paper-2); padding:32px 24px; min-height:170px; display:flex; flex-direction:column; justify-content:space-between; transition:background .3s;}
+.tool-item:hover{background:#fff;}
+.tool-item .num{font-size:12px; color:var(--ink-soft); font-weight:600;}
+.tool-item h4{font-size:17px; margin-top:24px; line-height:1.25;}
+@media (max-width:900px){.tool-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.tool-grid{grid-template-columns:1fr;}}
+
+/* ================= WORK ================= */
+.work{padding:130px 0;}
+.work-list{display:flex; flex-direction:column;}
+.proj{
+  display:grid; grid-template-columns:0.9fr 1.5fr; gap:56px;
+  padding:56px 0; border-top:1px solid var(--line); align-items:start;
+  cursor:pointer;
+}
+.work-list .proj:last-child{border-bottom:1px solid var(--line);}
+.proj-cover{
+  aspect-ratio:16/11; border-radius:20px; position:relative; overflow:hidden;
+  display:flex; align-items:flex-end; padding:22px; color:#fff;
+}
+.proj-cover .tag{
+  font-size:12px; font-weight:600; background:rgba(255,255,255,0.18); backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,0.35); padding:6px 14px; border-radius:100px;
+}
+.proj-body h3{font-size:clamp(24px,3vw,34px); margin-bottom:6px;}
+.proj-role{font-size:13px; color:var(--ink-soft); font-weight:500; margin-bottom:20px;}
+.proj-cols{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-bottom:20px;}
+.proj-cols .blk .lbl{font-size:11px; letter-spacing:0.04em; color:var(--ink-soft); margin-bottom:6px; font-weight:600;}
+.proj-cols .blk .val{font-size:14.5px; line-height:1.55; color:var(--ink);}
+.proj-skills{display:flex; gap:8px; flex-wrap:wrap;}
+.proj-skills span{font-size:12px; padding:6px 12px; border:1px solid var(--line); border-radius:100px; color:var(--ink-soft);}
+@media (max-width:820px){.proj{grid-template-columns:1fr;} .proj-cols{grid-template-columns:1fr;}}
+
+.cover-oreo{background:linear-gradient(135deg,#1a1030,#3d1a52 45%,#8b1e5c);}
+.cover-friso{background:linear-gradient(135deg,#0d3b2e,#15694f 45%,#4fb37a);}
+.cover-cake{background:linear-gradient(135deg,#0d1a3b,#1e3a8a 45%,#3d5afe);}
+.cover-ellac{background:linear-gradient(135deg,#3b1a0d,#a64e18 45%,#fb923c);}
+.cover-startup{background:linear-gradient(135deg,#1a0d3b,#5b2a8a 45%,#ec4899);}
+.cover-career{background:linear-gradient(135deg,#0d2b3b,#146a86 45%,#38c2c9);}
+
+/* ================= CONTENT ================= */
+.content-sec{padding:120px 0; background:var(--navy); color:#fff; position:relative; overflow:hidden;}
+.content-sec::before{
+  content:''; position:absolute; inset:0; background:var(--grad-hero); opacity:0.7;
+}
+.content-sec .wrap{position:relative; z-index:2;}
+.content-sec .sec-head .kicker{color:#B9C4FF;}
+.content-sec .sec-head p{color:rgba(255,255,255,0.55);}
+.content-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+.c-tile{
+  aspect-ratio:9/13; border-radius:18px; border:1px solid rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.04); backdrop-filter:blur(6px);
+  display:flex; flex-direction:column; justify-content:space-between; padding:18px;
+  transition:transform .3s ease;
+}
+.c-tile:hover{transform:translateY(-6px);}
+.c-tile:nth-child(1){grid-row:span 2; aspect-ratio:auto;}
+.c-tile .plat{font-size:11px; font-weight:600; color:rgba(255,255,255,0.5);}
+.c-tile .ico{width:30px; height:30px; opacity:.7;}
+.c-tile .cap{font-size:13px; font-weight:500; line-height:1.4;}
+.handle-line{margin-top:60px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+.handle-line .handle{font-size:15px; font-weight:600; padding:10px 18px; border-radius:100px; border:1px solid rgba(255,255,255,0.25);}
+.handle-line span.note{font-size:13px; color:rgba(255,255,255,0.5);}
+@media (max-width:900px){.content-strip{grid-template-columns:repeat(2,1fr);} .c-tile:nth-child(1){grid-row:span 1;}}
+
+/* ================= JOURNEY ================= */
+.journey{padding:130px 0;}
+.timeline{position:relative; margin-top:20px;}
+.timeline::before{content:''; position:absolute; left:19px; top:6px; bottom:6px; width:2px; background:var(--line);}
+.tl-item{position:relative; padding:0 0 56px 60px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item .dot{
+  position:absolute; left:0; top:2px; width:40px; height:40px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff;
+  background:var(--grad-main);
+}
+.tl-item h4{font-size:20px; margin-bottom:6px;}
+.tl-item .when{font-size:12px; color:var(--ink-soft); font-weight:600; margin-bottom:10px;}
+.tl-item p{font-size:14.5px; color:var(--ink-soft); line-height:1.6; max-width:640px;}
+
+/* ================= BEYOND ================= */
+.beyond{padding:110px 0; background:var(--paper-2);}
+.beyond-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.beyond-card{
+  border-radius:22px; padding:28px; min-height:220px; position:relative; overflow:hidden;
+  display:flex; flex-direction:column; justify-content:flex-end; color:#fff;
+}
+.beyond-card h4{font-size:20px; margin-bottom:8px;}
+.beyond-card p{font-size:13.5px; color:rgba(255,255,255,0.8); line-height:1.5;}
+.b1{background:linear-gradient(150deg,#0d3b2e,#22c55e 120%);}
+.b2{background:linear-gradient(150deg,#1a0d3b,#8b5cf6 120%);}
+.b3{background:linear-gradient(150deg,#3b1a0d,#fb923c 120%);}
+@media (max-width:820px){.beyond-grid{grid-template-columns:1fr;}}
+
+/* ================= CONNECT ================= */
+.connect{padding:150px 0 100px; background:var(--grad-hero); color:#fff; text-align:left; position:relative; overflow:hidden;}
+.connect h2{font-size:clamp(38px,6vw,76px); max-width:820px;}
+.connect .sub{margin-top:20px; font-size:17px; color:rgba(255,255,255,0.6); max-width:480px;}
+.connect-links{margin-top:60px; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.14); border-radius:20px; overflow:hidden;}
+.connect-links a{background:rgba(10,13,34,0.4); padding:26px 24px; display:flex; flex-direction:column; gap:8px; transition:background .25s;}
+.connect-links a:hover{background:rgba(255,255,255,0.06);}
+.connect-links .lbl{font-size:11px; color:rgba(255,255,255,0.45); font-weight:600;}
+.connect-links .val{font-size:15px; font-weight:600;}
+footer{padding:34px 0; text-align:center; font-size:12.5px; color:rgba(255,255,255,0.35);}
+@media (max-width:820px){.connect-links{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<div class="phase-rail" id="phaseRail">
+  <span class="ph" data-phase="think">THINK</span>
+  <span class="ph" data-phase="create">CREATE</span>
+  <span class="ph" data-phase="connect">CONNECT</span>
+  <span class="ph" data-phase="grow">GROW</span>
+</div>
+
+<div class="topnav" id="topnav">
+  <a class="mark" href="#hero">M.Đ.</a>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#toolkit">Toolkit</a>
+    <a href="#work">Work</a>
+    <a href="#content">Content</a>
+    <a href="#journey">Journey</a>
+    <a href="#connect">Connect</a>
+  </nav>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero" data-theme="dark">
+  <div class="wrap">
+    <div class="hero-tag"><span class="dot"></span> Ho Chi Minh City · Marketing student, Honours College</div>
+    <h1>Hi, I'm Minh Đức — <span class="grad">Marketing mind. Creative energy.</span></h1>
+    <p class="role">Marketing student. Content creator. Brand thinker in training.</p>
+    <p class="statement">I enjoy turning ideas into stories, experiences, and brands that people can actually connect with — and I'm still early in figuring out exactly how.</p>
+    <div class="hero-cta">
+      <a href="#work" class="btn on-dark primary">Explore my work</a>
+      <a href="#connect" class="btn on-dark">Let's connect</a>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-photo">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+          <div class="ph-label">Photo placeholder<br>— portrait to be added</div>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <div class="row"><div class="k">CURRENTLY</div><div class="v">Year 2, Marketing — UEH Honours College</div></div>
+        <div class="row"><div class="k">FOCUS</div><div class="v">Brand Marketing &amp; Content Creation</div></div>
+        <div class="row"><div class="k">RECENT</div><div class="v">Exchange semester, Rotterdam University of Applied Sciences</div></div>
+        <div class="row"><div class="k">CHASING</div><div class="v">A seat in Brand Marketing at a company that makes things people love</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about" data-theme="light">
+  <div class="wrap">
+    <div class="about-layout">
+      <div class="about-story">
+        <p>I started with marketing because I was curious about why people choose, remember, and connect with certain brands.</p>
+        <p>Along the way, I discovered I also love creating — from content and visual ideas to campaigns and experiences. Most of what's on this page is still a work in progress, which is exactly how I like it: something to keep building.</p>
+        <p>Right now that means splitting my time between coursework, case competitions with teammates who push me, a small startup project, and a camera I'm still learning to use well.</p>
+      </div>
+      <div class="trait-grid">
+        <div class="trait"><div class="n">Trait 01</div><h4>Curious</h4><p>Always asking why a brand, a campaign, or a piece of content works the way it does.</p></div>
+        <div class="trait"><div class="n">Trait 02</div><h4>Creative</h4><p>Comfortable moving between strategy decks and actually making the thing.</p></div>
+        <div class="trait"><div class="n">Trait 03</div><h4>Adaptable</h4><p>Studied and lived abroad, worked across teams, and I'm quick to adjust to a new brief.</p></div>
+        <div class="trait"><div class="n">Trait 04</div><h4>Persistent</h4><p>Case competitions and a startup have taught me to keep refining instead of settling for the first idea.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TOOLKIT ================= -->
+<section class="toolkit" id="toolkit" data-theme="light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="kicker">What I do</span>
+        <h2>A creative-marketing toolkit, still growing</h2>
+      </div>
+      <p>The tools I reach for most when I'm turning a brief into something real.</p>
+    </div>
+    <div class="tool-grid">
+      <div class="tool-item"><div class="num">Strategy</div><h4>Marketing &amp; brand strategy</h4></div>
+      <div class="tool-item"><div class="num">Brand</div><h4>Brand positioning &amp; messaging</h4></div>
+      <div class="tool-item"><div class="num">Content</div><h4>Content creation &amp; video editing</h4></div>
+      <div class="tool-item"><div class="num">Social</div><h4>Social media planning</h4></div>
+      <div class="tool-item"><div class="num">Campaigns</div><h4>Campaign &amp; activation ideas</h4></div>
+      <div class="tool-item"><div class="num">Storytelling</div><h4>Visual storytelling</h4></div>
+      <div class="tool-item"><div class="num">Teamwork</div><h4>Team collaboration</h4></div>
+      <div class="tool-item"><div class="num">Communication</div><h4>Presentation &amp; communication</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section class="work" id="work" data-theme="light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="kicker">Selected work</span>
+        <h2>Case competitions, a startup, and a few solo bets</h2>
+      </div>
+      <p>Real projects and submissions from the past year — most still in progress, all genuinely mine.</p>
+    </div>
+
+    <div class="work-list">
+
+      <div class="proj">
+        <div class="proj-cover cover-startup"><span class="tag">Business / Startup</span></div>
+        <div class="proj-body">
+          <h3>Mycelium packaging startup</h3>
+          <div class="proj-role">Co-founder</div>
+          <div class="proj-cols">
+            <div class="blk"><div class="lbl">Objective</div><div class="val">Explore mushroom-root (mycelium) material as a sustainable alternative to conventional packaging.</div></div>
+            <div class="blk"><div class="lbl">Outcome</div><div class="val">Recognized at UEH Startup Zone 2025 and Smart City 2025.</div></div>
+          </div>
+          <div class="proj-skills"><span>Sustainability</span><span>Brand building</span><span>Pitching</span><span>Product thinking</span></div>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-cover cover-oreo"><span class="tag">Campaign development</span></div>
+        <div class="proj-body">
+          <h3>OREO MỞ KÈO — S-MAZE 2026</h3>
+          <div class="proj-role">Big Idea &amp; Activation Lead</div>
+          <div class="proj-cols">
+            <div class="blk"><div class="lbl">Idea</div><div class="val">An Oreo-branded activation concept built around a full go-to-market phasing and activation plan.</div></div>
+            <div class="blk"><div class="lbl">What I contributed</div><div class="val">Owned the Big Idea and activation architecture, plus KPI and budget planning for the team submission.</div></div>
+          </div>
+          <div class="proj-skills"><span>Big Idea</span><span>Activation planning</span><span>Budgeting</span><span>Deck design</span></div>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-cover cover-friso"><span class="tag">Brand marketing</span></div>
+        <div class="proj-body">
+          <h3>Friso Pro — "Break the Surface"</h3>
+          <div class="proj-role">Team member, Marketing Challengers S14 x Friso, Round 1</div>
+          <div class="proj-cols">
+            <div class="blk"><div class="lbl">Big Idea</div><div class="val">"Bò mát tay" with the key message "Bụng bé êm khỏe, trọn vẹn an tâm," built around a new dairy-cow mascot for the brand.</div></div>
+            <div class="blk"><div class="lbl">Structure</div><div class="val">Three pillars — Empathy, Trust, and Advocacy — developed and refined together with teammates.</div></div>
+          </div>
+          <div class="proj-skills"><span>Brand comms</span><span>Mascot concept</span><span>TikTok content</span><span>Team collaboration</span></div>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-cover cover-cake"><span class="tag">Campaign development</span></div>
+        <div class="proj-body">
+          <h3>Cake by VPBank — Q4 savings campaign</h3>
+          <div class="proj-role">Team member</div>
+          <div class="proj-cols">
+            <div class="blk"><div class="lbl">Big Idea</div><div class="val">"Cake Savings — Không cần cố, vẫn có để dành," using AI-powered auto-categorization, round-up micro-saving, and goal-based planning to make saving effortless for urban Gen Z.</div></div>
+            <div class="blk"><div class="lbl">Structure</div><div class="val">Three phases — Reveal, Activate, Sustain — with a full KPI and budget plan.</div></div>
+          </div>
+          <div class="proj-skills"><span>Fintech</span><span>Gen Z insight</span><span>Campaign phasing</span><span>KPI planning</span></div>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-cover cover-ellac"><span class="tag">Brand marketing</span></div>
+        <div class="proj-body">
+          <h3>ELLAC — repositioning a school-nutrition brand</h3>
+          <div class="proj-role">Team member, Marketing Challengers S14</div>
+          <div class="proj-cols">
+            <div class="blk"><div class="lbl">Objective</div><div class="val">Build an IMC campaign repositioning ELLAC, a school-nutrition milk brand, as a trusted nutrition advisor.</div></div>
+            <div class="blk"><div class="lbl">What I contributed</div><div class="val">Situation analysis and core insights, using a Truth–Tension–Motivation framework that shaped the "25-Year Nutrition Blueprint" idea.</div></div>
+          </div>
+          <div class="proj-skills"><span>Insight mining</span><span>IMC</span><span>FMCG</span><span>Research</span></div>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-cover cover-career"><span class="tag">Service experience</span></div>
+        <div class="proj-body">
+          <h3>Career Compass — mentorship marketplace</h3>
+          <div class="proj-role">Team member, business plan project</div>
+          <div class="proj-cols">
+            <div class="blk"><div class="lbl">Objective</div><div class="val">A group business plan for a Vietnam-focused mentorship marketplace connecting students with mentors.</div></div>
+            <div class="blk"><div class="lbl">What I contributed</div><div class="val">Location and target market analysis, plus the 7Ps marketing mix.</div></div>
+          </div>
+          <div class="proj-skills"><span>Market sizing</span><span>7Ps</span><span>Service design</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTENT CREATION ================= -->
+<section class="content-sec" id="content" data-theme="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="kicker">Content creation</span>
+        <h2>I don't just study how content works. I create it.</h2>
+      </div>
+      <p>Daily-life vlogging, football, and behind-the-scenes moments, posted as Duckando.</p>
+    </div>
+    <div class="content-strip">
+      <div class="c-tile">
+        <span class="plat">YouTube</span>
+        <div><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none"/></svg>
+        <div class="cap">Daily-life vlog<br>[thumbnail placeholder]</div></div>
+      </div>
+      <div class="c-tile">
+        <span class="plat">TikTok</span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 3v11a3 3 0 11-3-3"/><path d="M14 3c.5 2.5 2 4 4.5 4.3"/></svg>
+        <div class="cap">Short-form clip<br>[thumbnail placeholder]</div>
+      </div>
+      <div class="c-tile">
+        <span class="plat">Photography</span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/></svg>
+        <div class="cap">Travel &amp; life<br>[photo placeholder]</div>
+      </div>
+      <div class="c-tile">
+        <span class="plat">Football</span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7l3.5 2.5-1.3 4.1h-4.4L8.5 9.5 12 7z"/></svg>
+        <div class="cap">Matchday content<br>[clip placeholder]</div>
+      </div>
+      <div class="c-tile">
+        <span class="plat">BTS</span>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7l3-3h10l3 3"/><rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13" r="3.5"/></svg>
+        <div class="cap">Behind the scenes<br>[clip placeholder]</div>
+      </div>
+    </div>
+    <div class="handle-line">
+      <span class="handle">@Duckando</span>
+      <span class="note">YouTube &amp; TikTok — video editing hobbyist, building a content presence one upload at a time.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JOURNEY ================= -->
+<section class="journey" id="journey" data-theme="light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="kicker">My journey</span>
+        <h2>Still early, still building</h2>
+      </div>
+      <p>A rough map of how I got here — and where I'm headed next.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="dot">1</div>
+        <h4>Marketing student</h4>
+        <div class="when">Year 1–2, Honours College, UEH-ISB</div>
+        <p>Started asking why people choose the brands they choose, and decided marketing was where I wanted to dig in.</p>
+      </div>
+      <div class="tl-item">
+        <div class="dot">2</div>
+        <h4>Case competitions &amp; projects</h4>
+        <div class="when">Ongoing</div>
+        <p>Oreo, Friso, Cake by VPBank, ELLAC, Career Compass — different briefs, same habit of turning an insight into an idea I can actually pitch.</p>
+      </div>
+      <div class="tl-item">
+        <div class="dot">3</div>
+        <h4>Content creation</h4>
+        <div class="when">Ongoing, as Duckando</div>
+        <p>Picked up a camera and video editing on the side — a way to practice storytelling outside of slide decks.</p>
+      </div>
+      <div class="tl-item">
+        <div class="dot">4</div>
+        <h4>International experience</h4>
+        <div class="when">Early–mid 2026</div>
+        <p>Exchange semester at Rotterdam University of Applied Sciences, plus several international study tours — a good reminder that marketing looks different everywhere.</p>
+      </div>
+      <div class="tl-item">
+        <div class="dot">5</div>
+        <h4>Toward Brand Marketing</h4>
+        <div class="when">What's next</div>
+        <p>Building toward a Brand Marketing role at a company I genuinely admire — Vinamilk's Graduate Talent Program is one milestone I'm working toward, alongside global FMCG and tech names.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BEYOND ================= -->
+<section class="beyond" id="beyond" data-theme="light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="kicker">Beyond marketing</span>
+        <h2>The rest of the picture</h2>
+      </div>
+      <p>A few things that shape how I think, even when they're not on a slide.</p>
+    </div>
+    <div class="beyond-grid">
+      <div class="beyond-card b1"><h4>Football</h4><p>Watching, playing, and — unsurprisingly — noticing how clubs and brands build loyalty.</p></div>
+      <div class="beyond-card b2"><h4>International experiences</h4><p>Studying in Rotterdam and joining study tours abroad, always curious about how culture shapes consumer behavior.</p></div>
+      <div class="beyond-card b3"><h4>Photography &amp; video</h4><p>Learning to shoot and edit for Duckando — the practical, hands-on half of visual storytelling.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONNECT ================= -->
+<section class="connect" id="connect" data-theme="dark">
+  <div class="wrap">
+    <span class="hero-tag"><span class="dot"></span> Open to internships &amp; collaborations</span>
+    <h2>Let's create something worth remembering.</h2>
+    <p class="sub">Whether it's a brand brief, a content collaboration, or just a conversation about marketing — I'd love to hear from you.</p>
+    <div class="connect-links">
+      <a href="#"><span class="lbl">EMAIL</span><span class="val">[add email address]</span></a>
+      <a href="#"><span class="lbl">LINKEDIN</span><span class="val">[add LinkedIn URL]</span></a>
+      <a href="#"><span class="lbl">CONTENT</span><span class="val">@Duckando — YouTube &amp; TikTok</span></a>
+    </div>
+  </div>
+  <footer>Trần Minh Đức (David) · Marketing student, UEH Honours College · Portfolio in progress</footer>
+</section>
+
+<script>
+// topnav dark/light zone
+const topnav = document.getElementById('topnav');
+const phaseRail = document.getElementById('phaseRail');
+const darkSections = document.querySelectorAll('section[data-theme="dark"]');
+const allSections = document.querySelectorAll('section[data-theme]');
+
+const phaseMap = {
+  hero:'think', about:'think',
+  toolkit:'create', work:'create',
+  content:'connect', beyond:'connect',
+  journey:'grow', connect:'grow'
+};
+
+function updatePhase(id){
+  const phase = phaseMap[id];
+  if(!phase) return;
+  document.querySelectorAll('.phase-rail .ph').forEach(el=>{
+    el.classList.toggle('active', el.dataset.phase === phase);
+  });
+}
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const theme = entry.target.dataset.theme;
+      topnav.classList.toggle('dark-zone', theme === 'dark');
+      phaseRail.classList.toggle('on-dark', theme === 'dark');
+      updatePhase(entry.target.id);
+    }
+  });
+}, {rootMargin: '-45% 0px -45% 0px'});
+
+allSections.forEach(s=>io.observe(s));
+</script>
+
+</body>
+</html>
